@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, CircularProgress, Typography } from "@mui/material";
 import TransactionList from "../transaction/TransactionList.tsx";
 import useTransactions from "../../hooks/useTransactions.ts";
