@@ -1,5 +1,4 @@
 import {Typography, Skeleton, Box} from "@mui/material";
-import Transaction from "../transaction/Transaction.tsx";
 
 interface BalanceCardProps {
     balance: number;
