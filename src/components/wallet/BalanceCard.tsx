@@ -1,4 +1,5 @@
 import {Typography, Skeleton, Box} from "@mui/material";
+import Transaction from "../transaction/Transaction.tsx";
 
 interface BalanceCardProps {
     balance: number;
@@ -16,6 +17,7 @@ const BalanceCard = ({ balance, isLoading }: BalanceCardProps)=> {
             padding: 2,
             borderRadius: 2,
             boxShadow: 2,
+            boxSizing: 'border-box'
         }}>
             <Typography variant="h6" fontWeight={700} color={"textPrimary"}>
                 Tu saldo disponible

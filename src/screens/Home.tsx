@@ -1,8 +1,11 @@
 import { Box } from "@mui/material";
 import BalanceCard from "../components/wallet/BalanceCard.tsx";
 import QuickActions from "../components/wallet/QuickActions.tsx";
+import TransactionSection from "../components/wallet/TransactionSection.tsx";
 
 const Home = () => {
+
+
     return (
         <Box
             display="flex"
@@ -15,6 +18,7 @@ const Home = () => {
         >
             <BalanceCard balance={1000} isLoading={false} />
             <QuickActions />
+            <TransactionSection />
         </Box>
     );
 };

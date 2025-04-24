@@ -5,7 +5,7 @@ import {
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import LogoutIcon from '@mui/icons-material/Logout';
-import ActionButton from "./ActionButton";
+import ActionButton from "../shared/ActionButton.tsx";
 
 const QuickActions = () => {
     return (
@@ -18,7 +18,8 @@ const QuickActions = () => {
             boxShadow: 2,
             padding: 2,
             borderRadius: 2,
-            gap: 2
+            gap: 2,
+            boxSizing: 'border-box'
         }}>
             <Typography variant="h6" fontWeight={700} color={"textPrimary"}>
                 Acciones rápidas
