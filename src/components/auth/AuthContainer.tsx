@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Container } from '@mui/material';
 import Login from './Login';
 import Register from './Register';
@@ -10,7 +10,7 @@ interface AuthContainerProps {
 
 const AuthContainer = ({ onAuthSuccess }: AuthContainerProps) => {
     const [isLoginView, setIsLoginView] = useState(true);
-    const { isAuthenticated, checkAuth } = useAuth();
+    const { checkAuth } = useAuth();
 
     useEffect(() => {
         const isAlreadyAuthenticated = checkAuth();
