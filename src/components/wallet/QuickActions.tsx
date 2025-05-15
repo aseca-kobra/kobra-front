@@ -6,8 +6,18 @@ import SwapVertIcon from '@mui/icons-material/SwapVert';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ActionButton from "../shared/ActionButton.tsx";
+import DepositDialog from "./DepositDialog.tsx";
+import { useState } from "react";
+import useWallet from "../../hooks/useWallet.ts";
 
 const QuickActions = () => {
+    const [isDepositDialogOpen, setIsDepositDialogOpen] = useState(false);
+    const { deposit } = useWallet();
+
+    const handleDeposit = (amount: number) => {
+        deposit(amount);
+    };
+
     return (
         <Box sx={{
             display: "flex",
@@ -32,9 +42,15 @@ const QuickActions = () => {
                 gap={2}
             >
                 <ActionButton icon={<SwapVertIcon />} label="Transferir" />
-                <ActionButton icon={<CreditCardIcon />} label="Cargar" />
+                <ActionButton icon={<CreditCardIcon />} label="Cargar" onClick={() => setIsDepositDialogOpen(true)} />
                 <ActionButton icon={<LogoutIcon />} label="Retirar" />
             </Box>
+
+            <DepositDialog
+                open={isDepositDialogOpen}
+                onClose={() => setIsDepositDialogOpen(false)}
+                onDeposit={handleDeposit}
+            />
         </Box>
     );
 };
