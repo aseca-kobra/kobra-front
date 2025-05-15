@@ -1,17 +1,24 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
 import useAuth from "../../hooks/useAuth.ts";
+import { JSX } from 'react';
+import { CircularProgress, Box } from '@mui/material';
 
 interface ProtectedRouteProps {
     children: JSX.Element;
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-    const { isAuthenticated, checkAuth } = useAuth();
+    const { isAuthenticated, isLoading } = useAuth();
 
-    const isAuth = isAuthenticated || checkAuth();
+    if (isLoading) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+                <CircularProgress />
+            </Box>
+        );
+    }
 
-    if (!isAuth) {
+    if (!isAuthenticated) {
         return <Navigate to="/" replace />;
     }
 

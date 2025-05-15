@@ -4,8 +4,6 @@ import QuickActions from "../components/wallet/QuickActions.tsx";
 import TransactionSection from "../components/wallet/TransactionSection.tsx";
 
 const Home = () => {
-
-
     return (
         <Box
             display="flex"
@@ -16,7 +14,7 @@ const Home = () => {
             alignSelf={"center"}
             width={"100%"}
         >
-            <BalanceCard balance={1000} isLoading={false} />
+            <BalanceCard />
             <QuickActions />
             <TransactionSection />
         </Box>
