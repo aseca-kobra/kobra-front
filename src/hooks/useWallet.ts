@@ -60,7 +60,29 @@ const useWallet = () => {
         }
     };
 
-    return { balance, isLoading, error, deposit };
+    const withdraw = async (amount: number) => {
+        try {
+            const response = await fetch(`${apiUrl}/wallet/withdraw`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${auth.accessToken}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ amount })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                setError(data.message || "Error al retirar");
+            }
+            setBalance(data.balance);
+            setError(null);
+        } catch (err) {
+            setError('Error al retirar');
+            console.error('Error withdrawing:', err);
+        }
+    };
+
+    return { balance, isLoading, error, deposit, withdraw };
 };
 
 export default useWallet;

@@ -7,15 +7,28 @@ import {
     Button,
     TextField,
     Box,
+    Typography,
 } from '@mui/material';
 
-interface DepositDialogProps {
+interface AmountDialogProps {
     open: boolean;
     onClose: () => void;
-    onDeposit: (amount: number) => void;
+    onConfirm: (amount: number) => void;
+    title: string;
+    description?: string;
+    confirmButtonText: string;
+    cancelButtonText?: string;
 }
 
-const DepositDialog = ({ open, onClose, onDeposit }: DepositDialogProps) => {
+const AmountDialog = ({
+    open,
+    onClose,
+    onConfirm,
+    title,
+    description,
+    confirmButtonText,
+    cancelButtonText = 'Cancelar',
+}: AmountDialogProps) => {
     const [amount, setAmount] = useState<string>('');
     const [error, setError] = useState<string>('');
 
@@ -33,20 +46,25 @@ const DepositDialog = ({ open, onClose, onDeposit }: DepositDialogProps) => {
             setError('Por favor ingrese un monto válido');
             return;
         }
-        onDeposit(numAmount);
+        onConfirm(numAmount);
         setAmount('');
         onClose();
     };
 
     return (
         <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-            <DialogTitle>Realizar Depósito</DialogTitle>
+            <DialogTitle>{title}</DialogTitle>
             <DialogContent>
                 <Box sx={{ mt: 2 }}>
+                    {description && (
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                            {description}
+                        </Typography>
+                    )}
                     <TextField
                         autoFocus
                         fullWidth
-                        label="Monto a depositar"
+                        label="Monto"
                         type="text"
                         value={amount}
                         onChange={handleAmountChange}
@@ -59,13 +77,13 @@ const DepositDialog = ({ open, onClose, onDeposit }: DepositDialogProps) => {
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button onClick={onClose}>Cancelar</Button>
+                <Button onClick={onClose}>{cancelButtonText}</Button>
                 <Button onClick={handleSubmit} variant="contained" color="primary">
-                    Depositar
+                    {confirmButtonText}
                 </Button>
             </DialogActions>
         </Dialog>
     );
 };
 
-export default DepositDialog; 
+export default AmountDialog; 
