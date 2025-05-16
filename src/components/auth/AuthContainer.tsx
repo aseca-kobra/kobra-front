@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, Container } from '@mui/material';
 import Login from './Login';
 import Register from './Register';
-import useAuth from '../../hooks/useAuth';
 
 interface AuthContainerProps {
     onAuthSuccess?: () => void;
@@ -10,14 +9,6 @@ interface AuthContainerProps {
 
 const AuthContainer = ({ onAuthSuccess }: AuthContainerProps) => {
     const [isLoginView, setIsLoginView] = useState(true);
-    const { checkAuth } = useAuth();
-
-    useEffect(() => {
-        const isAlreadyAuthenticated = checkAuth();
-        if (isAlreadyAuthenticated && onAuthSuccess) {
-            onAuthSuccess();
-        }
-    }, [checkAuth, onAuthSuccess]);
 
     const handleSwitchToRegister = () => {
         setIsLoginView(false);

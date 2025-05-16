@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect } from "react";
 
 interface LoginCredentials {
     email: string;
@@ -12,7 +12,7 @@ interface RegisterCredentials {
 }
 
 interface AuthResponse {
-    token?: string;
+    access_token?: string;
     user?: {
         id: string;
         name: string;
@@ -21,84 +21,86 @@ interface AuthResponse {
     error?: string;
 }
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export const useAuth = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [user, setUser] = useState<AuthResponse['user'] | null>(null);
+    const [user, setUser] = useState<AuthResponse["user"] | null>(null);
+    const [accessToken, setAccessToken] = useState<string | null>(null);
+
+    useEffect(() => {
+        const initializeAuth = async () => {
+            const token = localStorage.getItem("auth_token");
+            const savedUser = localStorage.getItem("user");
+            if (token && savedUser) {
+                setUser(JSON.parse(savedUser));
+                setIsAuthenticated(true);
+                setAccessToken(token);
+            }
+            setIsLoading(false);
+        };
+
+        initializeAuth();
+    }, []);
 
     const login = async (credentials: LoginCredentials): Promise<boolean> => {
         setIsLoading(true);
         setError(null);
 
         try {
-            // Simulación de llamada a API
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
-            // Mock de validación simple
-            if (credentials.email === "user@example.com" && credentials.password === "password123") {
-                const mockUser = {
-                    id: '1',
-                    name: 'Usuario Demo',
-                    email: credentials.email
-                };
-
-                // Guardar en localStorage (opcional)
-                localStorage.setItem('auth_token', 'mock_jwt_token');
-                localStorage.setItem('user', JSON.stringify(mockUser));
-
-                setUser(mockUser);
-                setIsAuthenticated(true);
-                return true;
-            } else {
-                setError('Credenciales incorrectas');
+            const response = await fetch(`${apiUrl}/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(credentials),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                setError(data.message || "Error en el inicio de sesión");
                 return false;
             }
+            const { access_token, user } = data as AuthResponse;
+            localStorage.setItem("auth_token", access_token ?? "");
+            localStorage.setItem("user", JSON.stringify(user));
+            setAccessToken(access_token!);
+            setUser(user);
+            setIsAuthenticated(true);
+            return true;
         } catch (err) {
-            setError('Error en el servidor. Intente nuevamente.');
-            console.error('Login error:', err);
+            setError("Error en el servidor. Intente nuevamente.");
+            console.error("Login error:", err);
             return false;
         } finally {
             setIsLoading(false);
         }
     };
 
-    const register = async (credentials: RegisterCredentials): Promise<boolean> => {
+    const register = async (
+        credentials: RegisterCredentials
+    ): Promise<boolean> => {
         setIsLoading(true);
         setError(null);
 
         try {
-            // Simulación de llamada a API
-            await new Promise(resolve => setTimeout(resolve, 2000));
-
-            // Validación simple
-            if (credentials.email && credentials.password && credentials.name) {
-                // En un caso real, aquí verificaríamos si el usuario ya existe
-                if (credentials.email === "user@example.com") {
-                    setError('Este correo ya está registrado');
-                    return false;
-                }
-
-                const mockUser = {
-                    id: '2',
-                    name: credentials.name,
-                    email: credentials.email
-                };
-
-                // Guardar en localStorage (opcional)
-                localStorage.setItem('auth_token', 'mock_jwt_token');
-                localStorage.setItem('user', JSON.stringify(mockUser));
-
-                setUser(mockUser);
-                setIsAuthenticated(true);
-                return true;
-            } else {
-                setError('Todos los campos son obligatorios');
+            const response = await fetch(`${apiUrl}/auth/signup`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(credentials),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                setError(data.message || "Error en el registro");
                 return false;
             }
+            return true;
         } catch (err) {
-            setError('Error en el servidor. Intente nuevamente.');
-            console.error('Register error:', err);
+            setError("Error en el servidor. Intente nuevamente.");
+            console.error("Register error:", err);
             return false;
         } finally {
             setIsLoading(false);
@@ -106,34 +108,22 @@ export const useAuth = () => {
     };
 
     const logout = () => {
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('user');
+        localStorage.removeItem("auth_token");
+        localStorage.removeItem("user");
+        setAccessToken(null);
         setUser(null);
         setIsAuthenticated(false);
     };
-
-    // Verificar si hay un token guardado al iniciar la aplicación
-    const checkAuth = useCallback(() => {
-        const token = localStorage.getItem('auth_token');
-        const savedUser = localStorage.getItem('user');
-
-        if (token && savedUser) {
-            setUser(JSON.parse(savedUser));
-            setIsAuthenticated(true);
-            return true;
-        }
-        return false;
-    }, []);
 
     return {
         isAuthenticated,
         isLoading,
         error,
         user,
+        accessToken,
         login,
         register,
         logout,
-        checkAuth
     };
 };
 
