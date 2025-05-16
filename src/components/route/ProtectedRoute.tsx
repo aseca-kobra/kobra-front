@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import useAuth from "../../hooks/useAuth.ts";
 import { JSX } from 'react';
 import { CircularProgress, Box } from '@mui/material';
+import { useAuth } from '../../hooks/useAuth';
 
 interface ProtectedRouteProps {
     children: JSX.Element;

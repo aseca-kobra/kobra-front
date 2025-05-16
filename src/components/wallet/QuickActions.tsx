@@ -6,8 +6,23 @@ import SwapVertIcon from '@mui/icons-material/SwapVert';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ActionButton from "../shared/ActionButton.tsx";
+import AmountDialog from "./AmountDialog.tsx";
+import { useState } from "react";
+import { useWallet } from "../../hooks/useWallet.tsx";
 
 const QuickActions = () => {
+    const [isDepositDialogOpen, setIsDepositDialogOpen] = useState(false);
+    const [isWithdrawDialogOpen, setIsWithdrawDialogOpen] = useState(false);
+    const { deposit, withdraw } = useWallet();
+
+    const handleDeposit = async (amount: number) => {
+        await deposit(amount);
+    };
+
+    const handleWithdraw = async (amount: number) => {
+        await withdraw(amount);
+    };
+
     return (
         <Box sx={{
             display: "flex",
@@ -32,9 +47,35 @@ const QuickActions = () => {
                 gap={2}
             >
                 <ActionButton icon={<SwapVertIcon />} label="Transferir" />
-                <ActionButton icon={<CreditCardIcon />} label="Cargar" />
-                <ActionButton icon={<LogoutIcon />} label="Retirar" />
+                <ActionButton
+                    icon={<CreditCardIcon />}
+                    label="Cargar"
+                    onClick={() => setIsDepositDialogOpen(true)}
+                />
+                <ActionButton
+                    icon={<LogoutIcon />}
+                    label="Retirar"
+                    onClick={() => setIsWithdrawDialogOpen(true)}
+                />
             </Box>
+
+            <AmountDialog
+                open={isDepositDialogOpen}
+                onClose={() => setIsDepositDialogOpen(false)}
+                onConfirm={handleDeposit}
+                title="Realizar Depósito"
+                description="Ingrese el monto que desea depositar en su cuenta"
+                confirmButtonText="Depositar"
+            />
+
+            <AmountDialog
+                open={isWithdrawDialogOpen}
+                onClose={() => setIsWithdrawDialogOpen(false)}
+                onConfirm={handleWithdraw}
+                title="Realizar Retiro"
+                description="Ingrese el monto que desea retirar de su cuenta"
+                confirmButtonText="Retirar"
+            />
         </Box>
     );
 };

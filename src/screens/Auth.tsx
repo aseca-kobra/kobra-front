@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import AuthContainer from '../components/auth/AuthContainer';
-import useAuth from '../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 
 const AuthPage = () => {
     const navigate = useNavigate();

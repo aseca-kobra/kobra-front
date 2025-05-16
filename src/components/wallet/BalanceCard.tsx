@@ -1,8 +1,8 @@
 import { Typography, Skeleton, Box, Alert } from "@mui/material";
-import useBalance from "../../hooks/useBalance.ts";
+import { useWallet } from "../../hooks/useWallet";
 
 const BalanceCard = () => {
-    const { balance, isLoading, error } = useBalance();
+    const { balance, isLoading, error } = useWallet();
 
     return (
         <Box sx={{
@@ -20,7 +20,7 @@ const BalanceCard = () => {
                 Tu saldo disponible
             </Typography>
             {isLoading ? (
-                <Skeleton variant="rounded" animation={"wave"} width={170} height={40} sx={{ bgColor: 'grey.100'}}/>
+                <Skeleton variant="rounded" animation={"wave"} width={170} height={40} sx={{ bgColor: 'grey.100' }} />
             ) : error ? (
                 <Box mt={1} width="100%">
                     <Alert severity="error" sx={{ width: "100%" }}>
@@ -29,7 +29,7 @@ const BalanceCard = () => {
                 </Box>
             ) : (
                 <Typography variant="h4" fontWeight={700} color={"textPrimary"}>
-                    ${balance.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    ${balance?.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </Typography>
             )}
         </Box>

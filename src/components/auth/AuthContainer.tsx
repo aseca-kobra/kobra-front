@@ -37,7 +37,6 @@ const AuthContainer = ({ onAuthSuccess }: AuthContainerProps) => {
                 {isLoginView ? (
                     <Login
                         onSwitchToRegister={handleSwitchToRegister}
-                        onLoginSuccess={handleAuthSuccess}
                     />
                 ) : (
                     <Register
