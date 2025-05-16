@@ -1,5 +1,5 @@
 import { Typography, Skeleton, Box, Alert } from "@mui/material";
-import useWallet from "../../hooks/useWallet.ts";
+import { useWallet } from "../../hooks/useWallet";
 
 const BalanceCard = () => {
     const { balance, isLoading, error } = useWallet();

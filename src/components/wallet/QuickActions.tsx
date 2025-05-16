@@ -8,19 +8,19 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ActionButton from "../shared/ActionButton.tsx";
 import AmountDialog from "./AmountDialog.tsx";
 import { useState } from "react";
-import useWallet from "../../hooks/useWallet.ts";
+import { useWallet } from "../../hooks/useWallet.tsx";
 
 const QuickActions = () => {
     const [isDepositDialogOpen, setIsDepositDialogOpen] = useState(false);
     const [isWithdrawDialogOpen, setIsWithdrawDialogOpen] = useState(false);
     const { deposit, withdraw } = useWallet();
 
-    const handleDeposit = (amount: number) => {
-        deposit(amount);
+    const handleDeposit = async (amount: number) => {
+        await deposit(amount);
     };
 
-    const handleWithdraw = (amount: number) => {
-        withdraw(amount);
+    const handleWithdraw = async (amount: number) => {
+        await withdraw(amount);
     };
 
     return (
