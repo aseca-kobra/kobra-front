@@ -16,14 +16,13 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
-import useAuth from '../../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 
 interface LoginProps {
     onSwitchToRegister: () => void;
-    onLoginSuccess?: () => void;
 }
 
-const Login: React.FC<LoginProps> = ({ onSwitchToRegister, onLoginSuccess }) => {
+const Login: React.FC<LoginProps> = ({ onSwitchToRegister }) => {
     const { login, isLoading, error } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -67,10 +66,7 @@ const Login: React.FC<LoginProps> = ({ onSwitchToRegister, onLoginSuccess }) => 
 
         if (!validateForm()) return;
 
-        const success = await login({ email, password });
-        if (success && onLoginSuccess) {
-            onLoginSuccess();
-        }
+        await login({ email, password });
     };
 
     const handleTogglePasswordVisibility = () => {
