@@ -11,7 +11,7 @@ import AmountDialog from "./AmountDialog.tsx";
 import TransferDialog from "./TransferDialog.tsx";
 import { useState } from "react";
 import { useWallet } from "../../hooks/useWallet.tsx";
-import useTransfer from "../../hooks/useTransfer.ts";
+import useTransfer from "../../hooks/useTransfer";
 
 const QuickActions = () => {
     const [isDepositDialogOpen, setIsDepositDialogOpen] = useState(false);

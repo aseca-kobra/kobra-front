@@ -30,8 +30,7 @@ export class TransactionService {
             case TransactionType.TRANSFER_OUT:
                 return 'sent';
             default:
-                return 'sent';
-        }
+                throw new Error(`Unrecognized TransactionType: ${transaction.type}' in transaction ID: ${transaction.id}`);        }
     }
 
     private static formatTransactionDescription(transaction: BackendTransaction): string {

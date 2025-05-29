@@ -48,7 +48,8 @@ const useTransfer = (): UseTransferReturn => {
                 } else if (data.message === 'Recipient not found') {
                     errorMessage = 'El destinatario no está registrado';
                 }
-                
+
+                setError(errorMessage);
                 return { success: false, error: errorMessage };
             }
 
