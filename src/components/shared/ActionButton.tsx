@@ -1,15 +1,19 @@
 import { Button, Stack, Typography } from "@mui/material";
 import {ReactNode} from "react";
 
-const ActionButton = ({ icon, label, onClick }: {
+interface ActionButtonProps {
     icon: ReactNode;
     label: string;
     onClick?: () => void;
-}) => {
+    disabled?: boolean;
+}
+
+const ActionButton = ({ icon, label, onClick, disabled }: ActionButtonProps) => {
     return (
         <Button
             variant="outlined"
             onClick={onClick}
+            disabled={disabled}
             sx={{
                 width: 100,
                 height: 100,
