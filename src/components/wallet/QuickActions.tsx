@@ -70,7 +70,7 @@ const QuickActions = () => {
                 />
                 <ActionButton
                     icon={<CreditCardIcon />}
-                    label="Cargar"
+                    label="Debin"
                     onClick={() => setIsDepositDialogOpen(true)}
                 />
                 <ActionButton
