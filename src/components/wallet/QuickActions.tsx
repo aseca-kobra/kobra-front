@@ -5,7 +5,6 @@ import {
 } from "@mui/material";
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
-import LogoutIcon from '@mui/icons-material/Logout';
 import ActionButton from "../shared/ActionButton.tsx";
 import AmountDialog from "./AmountDialog.tsx";
 import TransferDialog from "./TransferDialog.tsx";
@@ -58,7 +57,7 @@ const QuickActions = () => {
             <Box
                 display="flex"
                 flexDirection="row"
-                justifyContent="space-between"
+                justifyContent="space-evenly"
                 width={"100%"}
                 gap={2}
             >
@@ -72,11 +71,6 @@ const QuickActions = () => {
                     icon={<CreditCardIcon />}
                     label="Debin"
                     onClick={() => setIsDepositDialogOpen(true)}
-                />
-                <ActionButton
-                    icon={<LogoutIcon />}
-                    label="Retirar"
-                    onClick={() => setIsWithdrawDialogOpen(true)}
                 />
             </Box>
 
