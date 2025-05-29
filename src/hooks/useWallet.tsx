@@ -70,7 +70,7 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetch(`${apiUrl}/wallet/deposit`, {
+            const response = await fetch(`${apiUrl}/wallet/debin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
