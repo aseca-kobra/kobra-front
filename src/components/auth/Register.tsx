@@ -68,6 +68,12 @@ const Register: React.FC<RegisterProps> = ({ onSwitchToLogin, onRegisterSuccess 
         } else if (password.length < 6) {
             errors.password = 'La contraseña debe tener al menos 6 caracteres';
             isValid = false;
+        } else if (!/[A-Za-z]/.test(password)) {
+            errors.password = 'Debe incluir al menos una letra';
+            isValid = false;
+        } else if (!/\d/.test(password)) {
+            errors.password = 'Debe incluir al menos un número';
+            isValid = false;
         }
 
         // Validación de confirmación de contraseña

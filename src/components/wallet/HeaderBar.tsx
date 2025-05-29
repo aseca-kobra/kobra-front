@@ -35,7 +35,6 @@ const HeaderBar = () => {
                         onClick={handleOpenDialog}
                         startIcon={<LogoutIcon />}
                     >
-                        Logout
                     </Button>
                 </Toolbar>
             </AppBar>
