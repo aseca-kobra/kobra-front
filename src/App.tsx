@@ -5,6 +5,7 @@ import Auth from "./screens/Auth.tsx";
 import ProtectedRoute from "./components/route/ProtectedRoute.tsx";
 import { WalletProvider } from "./hooks/useWallet.tsx";
 import { AuthProvider } from "./hooks/useAuth.tsx";
+import { TransactionsProvider } from "./hooks/useTransactionsContext.tsx";
 
 function App() {
   return (
@@ -12,17 +13,19 @@ function App() {
       <Router>
         <AuthProvider>
           <WalletProvider>
-            <Routes>
-              <Route path="/" element={<Auth />} />
-              <Route
-                path="/home"
-                element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
+            <TransactionsProvider>
+              <Routes>
+                <Route path="/" element={<Auth />} />
+                <Route
+                  path="/home"
+                  element={
+                    <ProtectedRoute>
+                      <Home />
+                    </ProtectedRoute>
+                  }
+                />
+              </Routes>
+            </TransactionsProvider>
           </WalletProvider>
         </AuthProvider>
       </Router>

@@ -1,13 +1,13 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
-import TransactionList from "../transaction/TransactionList.tsx";
-import useTransactions from "../../hooks/useTransactions.ts";
+import { Box, Typography, CircularProgress } from "@mui/material";
+import TransactionList from "../transaction/TransactionList";
+import { useTransactionsContext } from "../../hooks/useTransactionsContext";
 
 interface TransactionSectionProps {
     title?: string;
 }
 
 const TransactionSection = ({ title = "Transacciones recientes" }: TransactionSectionProps) => {
-    const { transactions, isLoading, error } = useTransactions();
+    const { transactions, isLoading, error } = useTransactionsContext();
 
     return (
         <Box sx={{

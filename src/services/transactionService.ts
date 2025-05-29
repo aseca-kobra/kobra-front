@@ -1,4 +1,11 @@
-import { TransactionProps, TransactionType as FrontendTransactionType } from '../components/transaction/Transaction';
+import { TransactionType as FrontendTransactionType } from '../components/transaction/Transaction';
+
+export interface TransactionProps {
+    type: FrontendTransactionType;
+    description: string;
+    date: string;
+    amount: number;
+}
 
 export enum TransactionType {
     DEPOSIT = 'DEPOSIT',
