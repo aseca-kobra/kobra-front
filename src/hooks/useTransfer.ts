@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from './useAuth';
 import { useWallet } from './useWallet';
-import useTransactions from './useTransactions';
+import { useTransactionsContext } from './useTransactionsContext';
 
 interface UseTransferReturn {
     transfer: (amount: number, recipientEmail: string) => Promise<{ success: boolean; error?: string }>;
@@ -14,7 +14,7 @@ const useTransfer = (): UseTransferReturn => {
     const [error, setError] = useState<string | null>(null);
     const { accessToken } = useAuth();
     const { refreshBalance } = useWallet();
-    const { refreshTransactions } = useTransactions();
+    const { refreshTransactions } = useTransactionsContext();
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const transfer = async (amount: number, recipientEmail: string): Promise<{ success: boolean; error?: string }> => {
@@ -60,8 +60,8 @@ const useTransfer = (): UseTransferReturn => {
                 refreshTransactions()
             ]);
             return { success: true };
-        } catch (err) {
-            const errorMessage = err instanceof Error ? err.message : 'Error al realizar la transferencia';
+        } catch (error) {
+            const errorMessage = 'Error al realizar la transferencia - ' + (error instanceof Error ? error.message : 'Error desconocido');
             setError(errorMessage);
             return { success: false, error: errorMessage };
         } finally {

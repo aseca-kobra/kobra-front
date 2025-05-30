@@ -5,8 +5,8 @@ interface WalletContextType {
     balance: number;
     isLoading: boolean;
     error: string | null;
-    deposit: (amount: number) => Promise<void>;
-    withdraw: (amount: number) => Promise<void>;
+    deposit: (amount: number, onSuccess?: () => Promise<void>) => Promise<void>;
+    withdraw: (amount: number, onSuccess?: () => Promise<void>) => Promise<void>;
     refreshBalance: () => Promise<void>;
 }
 
@@ -21,7 +21,6 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const { accessToken, isAuthenticated } = useAuth();
-
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const fetchBalance = async () => {
@@ -62,7 +61,7 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
         }
     }, [isAuthenticated, accessToken]);
 
-    const deposit = async (amount: number) => {
+    const deposit = async (amount: number, onSuccess?: () => Promise<void>) => {
         if (!accessToken || !isAuthenticated) {
             throw new Error('No hay sesión activa');
         }
@@ -86,6 +85,10 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
 
             const data = await response.json();
             setBalance(data.balance);
+
+            if (onSuccess) {
+                await onSuccess();
+            }
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Error al realizar el depósito');
             throw err;
@@ -94,7 +97,7 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
         }
     };
 
-    const withdraw = async (amount: number) => {
+    const withdraw = async (amount: number, onSuccess?: () => Promise<void>) => {
         if (!accessToken || !isAuthenticated) {
             throw new Error('No hay sesión activa');
         }
@@ -118,6 +121,10 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
 
             const data = await response.json();
             setBalance(data.balance);
+
+            if (onSuccess) {
+                await onSuccess();
+            }
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Error al realizar el retiro');
             throw err;

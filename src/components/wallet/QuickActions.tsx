@@ -11,6 +11,7 @@ import TransferDialog from "./TransferDialog.tsx";
 import { useState } from "react";
 import { useWallet } from "../../hooks/useWallet.tsx";
 import useTransfer from "../../hooks/useTransfer";
+import { useTransactionsContext } from "../../hooks/useTransactionsContext";
 
 const QuickActions = () => {
     const [isDepositDialogOpen, setIsDepositDialogOpen] = useState(false);
@@ -18,13 +19,14 @@ const QuickActions = () => {
     const [isTransferDialogOpen, setIsTransferDialogOpen] = useState(false);
     const { deposit, withdraw } = useWallet();
     const { transfer, isLoading: isTransferLoading, error: transferError } = useTransfer();
+    const { refreshTransactions } = useTransactionsContext();
 
     const handleDeposit = async (amount: number) => {
-        await deposit(amount);
+        await deposit(amount, refreshTransactions);
     };
 
     const handleWithdraw = async (amount: number) => {
-        await withdraw(amount);
+        await withdraw(amount, refreshTransactions);
     };
 
     const handleTransfer = async (amount: number, recipientEmail: string) => {
