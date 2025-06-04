@@ -27,9 +27,16 @@ describe("Debin", () => {
         cy.contains("Por favor ingrese un monto válido");
         cy.get('button[name="cancel"]').click();
 
-        // Verifica que el balance no cambie
         getBalance().should("equal", initialBalance);
     });
+
+    // it("Invalid debin (not enough money in bank)", () => {
+    //     cy.get('button[name="confirm"]').click();
+    //     cy.contains("No hay saldo suficiente en la cuenta");
+    //     cy.get('button[name="cancel"]').click();
+    //
+    //     getBalance().should("equal", initialBalance);
+    // });
 
     it("Invalid debin (amount = 0)", () => {
         cy.get('input[name="amount"]').type("0");
