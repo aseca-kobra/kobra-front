@@ -15,18 +15,13 @@ import { useTransactionsContext } from "../../hooks/useTransactionsContext";
 
 const QuickActions = () => {
     const [isDepositDialogOpen, setIsDepositDialogOpen] = useState(false);
-    const [isWithdrawDialogOpen, setIsWithdrawDialogOpen] = useState(false);
     const [isTransferDialogOpen, setIsTransferDialogOpen] = useState(false);
-    const { deposit, withdraw } = useWallet();
+    const { deposit } = useWallet();
     const { transfer, isLoading: isTransferLoading, error: transferError } = useTransfer();
     const { refreshTransactions } = useTransactionsContext();
 
     const handleDeposit = async (amount: number) => {
         await deposit(amount, refreshTransactions);
-    };
-
-    const handleWithdraw = async (amount: number) => {
-        await withdraw(amount, refreshTransactions);
     };
 
     const handleTransfer = async (amount: number, recipientEmail: string) => {
@@ -85,15 +80,6 @@ const QuickActions = () => {
                 title="Realizar Debin"
                 description="Ingrese el monto que desea ingresar en su cuenta"
                 confirmButtonText="Debin"
-            />
-
-            <AmountDialog
-                open={isWithdrawDialogOpen}
-                onClose={() => setIsWithdrawDialogOpen(false)}
-                onConfirm={handleWithdraw}
-                title="Realizar Retiro"
-                description="Ingrese el monto que desea retirar de su cuenta"
-                confirmButtonText="Retirar"
             />
 
             <TransferDialog
