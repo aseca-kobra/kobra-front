@@ -80,9 +80,9 @@ const QuickActions = () => {
                 open={isDepositDialogOpen}
                 onClose={() => setIsDepositDialogOpen(false)}
                 onConfirm={handleDeposit}
-                title="Realizar Depósito"
-                description="Ingrese el monto que desea depositar en su cuenta"
-                confirmButtonText="Depositar"
+                title="Realizar Debin"
+                description="Ingrese el monto que desea ingresar en su cuenta"
+                confirmButtonText="Debin"
             />
 
             <AmountDialog
