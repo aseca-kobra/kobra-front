@@ -160,11 +160,12 @@ const TransferDialog = ({
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} color="inherit" disabled={isSubmitting}>
+                <Button onClick={handleClose} name="cancel" color="inherit" disabled={isSubmitting}>
                     {cancelButtonText}
                 </Button>
                 <Button 
-                    onClick={handleConfirm} 
+                    onClick={handleConfirm}
+                    name="confirm"
                     variant="contained" 
                     color="primary"
                     disabled={isSubmitting}
