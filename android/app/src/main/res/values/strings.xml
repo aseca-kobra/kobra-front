@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Kobra</string>
+    <string name="title_activity_main">Kobra</string>
+    <string name="package_name">com.kobra.app</string>
+    <string name="custom_url_scheme">com.kobra.app</string>
+</resources>
