@@ -60,7 +60,7 @@ const QuickActions = () => {
             >
                 <ActionButton 
                     icon={<SwapVertIcon />}
-                    name={"withdraw"}
+                    name={"transfer"}
                     label="Transferir" 
                     onClick={() => setIsTransferDialogOpen(true)}
                     disabled={isTransferLoading}
