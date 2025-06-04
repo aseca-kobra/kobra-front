@@ -1,12 +1,13 @@
 describe("Login screen", () => {
-    it("Visit login page", () => {
+    beforeEach(() => {
         cy.visit("/");
+    });
+
+    it("Visit login page", () => {
         cy.contains("Iniciar sesión");
     });
 
     it("Incorrect email format (not email)", () => {
-        cy.visit("/");
-
         cy.get('input[name="email"]').type("incorrectemailformat");
         cy.get('input[name="password"]').type("password1");
 
@@ -16,8 +17,6 @@ describe("Login screen", () => {
     });
 
     it("Incorrect email format (empty)", () => {
-        cy.visit("/");
-
         cy.get('input[name="password"]').type("password1");
 
         cy.get('button[type="submit"]').click();
@@ -26,8 +25,6 @@ describe("Login screen", () => {
     });
 
     it("Incorrect password format (short)", () => {
-        cy.visit("/");
-
         cy.get('input[name="email"]').type("incorrectemailformat");
         cy.get('input[name="password"]').type("pas");
 
@@ -37,8 +34,6 @@ describe("Login screen", () => {
     });
 
     it("Incorrect password format (empty)", () => {
-        cy.visit("/");
-
         cy.get('input[name="email"]').type("incorrectemailformat");
 
         cy.get('button[type="submit"]').click();
@@ -47,8 +42,6 @@ describe("Login screen", () => {
     });
 
     it("Incorrect user login", () => {
-        cy.visit("/");
-
         cy.get('input[name="email"]').type("incorrectuser@gmail.com");
         cy.get('input[name="password"]').type("password1");
 
@@ -59,8 +52,6 @@ describe("Login screen", () => {
     });
 
     it("Successful login", () => {
-        cy.visit("/");
-
         cy.get('input[name="email"]').type("user1@gmail.com");
         cy.get('input[name="password"]').type("password1");
 
