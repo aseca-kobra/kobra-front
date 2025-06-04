@@ -78,8 +78,8 @@ const AmountDialog = ({
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button onClick={onClose}>{cancelButtonText}</Button>
-                <Button onClick={handleSubmit} variant="contained" color="primary">
+                <Button onClick={onClose} name="cancel">{cancelButtonText}</Button>
+                <Button onClick={handleSubmit} variant="contained" color="primary" name="confirm">
                     {confirmButtonText}
                 </Button>
             </DialogActions>
