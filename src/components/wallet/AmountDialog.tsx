@@ -64,6 +64,7 @@ const AmountDialog = ({
                     <TextField
                         autoFocus
                         fullWidth
+                        name="amount"
                         label="Monto"
                         type="text"
                         value={amount}
