@@ -1,4 +1,4 @@
-describe("Login screen", () => {
+describe("Signup screen", () => {
     const randomUser = `user${Date.now()}`;
 
     beforeEach(() => {
