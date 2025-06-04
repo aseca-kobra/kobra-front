@@ -31,6 +31,7 @@ const HeaderBar = () => {
                         <AccountCircleIcon />
                     </Box>
                     <Button
+                        name={"logout"}
                         color="inherit"
                         onClick={handleOpenDialog}
                         startIcon={<LogoutIcon />}
