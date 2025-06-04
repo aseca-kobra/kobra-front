@@ -135,6 +135,7 @@ const TransferDialog = ({
 
                     <TextField
                         label="Email del destinatario"
+                        name={"email"}
                         type="email"
                         value={recipientEmail}
                         onChange={handleEmailChange}
@@ -146,6 +147,7 @@ const TransferDialog = ({
                     />
                     <TextField
                         label="Monto"
+                        name={"amount"}
                         type="text"
                         value={amount}
                         onChange={handleAmountChange}
