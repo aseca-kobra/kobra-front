@@ -11,7 +11,7 @@ describe("Transfer", () => {
 
     beforeEach(() => {
         cy.visit("/");
-        cy.get('input[name="email"]').type("user1@gmail.com");
+        cy.get('input[name="email"]').type("user1@example.com");
         cy.get('input[name="password"]').type("password1");
         cy.get('button[type="submit"]').click();
 
@@ -65,7 +65,7 @@ describe("Transfer", () => {
     });
 
     it("Successful transfer", () => {
-        cy.get('input[name="email"]').type("user2@gmail.com");
+        cy.get('input[name="email"]').type("user2@example.com");
         cy.get('input[name="amount"]').type("1000");
         cy.get('button[name="confirm"]').click();
 

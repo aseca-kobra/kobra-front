@@ -12,41 +12,34 @@ describe("Signup screen", () => {
 
     it("Invalid name format (empty)", () => {
         cy.get('button[type="submit"]').click();
-
         cy.contains("El nombre es obligatorio");
     });
 
     it("Invalid email format (empty)", () => {
         cy.get('button[type="submit"]').click();
-
-        cy.contains("El nombre es obligatorio");
+        cy.contains("El email es obligatorio");
     });
 
-    it("Invalid email format (not email)", () => {
-        cy.get('input[name="email"]').type("Invalidemailformat");
-
+    it("Invalid email format (invalid email)", () => {
+        cy.get('input[name="email"]').type("incorrectemailformat");
         cy.get('button[type="submit"]').click();
-
-        cy.contains("El nombre es obligatorio");
+        cy.contains("Email inválido");
     });
 
     it("Invalid password format (empty)", () => {
         cy.get('button[type="submit"]').click();
-
         cy.contains("La contraseña es obligatoria");
     });
 
     it("Invalid password format (short)", () => {
         cy.get('input[name="password"]').type("pas");
-
         cy.get('button[type="submit"]').click();
-
         cy.contains("La contraseña debe tener al menos 6 caracteres");
     });
 
     it("Failed signup (email already exists)", () => {
         cy.get('input[name="name"]').type("user1");
-        cy.get('input[name="email"]').type("user1@gmail.com");
+        cy.get('input[name="email"]').type("user1@example.com");
         cy.get('input[name="password"]').type("password1");
         cy.get('input[name="confirmPassword"]').type("password1");
 
@@ -57,7 +50,7 @@ describe("Signup screen", () => {
 
     it("Successful signup", () => {
         cy.get('input[name="name"]').type(randomUser);
-        cy.get('input[name="email"]').type(`user${randomUser}@gmail.com`);
+        cy.get('input[name="email"]').type(`user${randomUser}@example.com`);
         cy.get('input[name="password"]').type("password1");
         cy.get('input[name="confirmPassword"]').type("password1");
 
@@ -69,7 +62,7 @@ describe("Signup screen", () => {
     it("Successful login with new user", () => {
         cy.visit("/");
 
-        cy.get('input[name="email"]').type(`user${randomUser}@gmail.com`);
+        cy.get('input[name="email"]').type(`user${randomUser}@example.com`);
         cy.get('input[name="password"]').type("password1");
 
         cy.get('button[type="submit"]').click();

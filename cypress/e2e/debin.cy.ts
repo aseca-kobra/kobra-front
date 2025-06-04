@@ -11,7 +11,7 @@ describe("Debin", () => {
 
     beforeEach(() => {
         cy.visit("/");
-        cy.get('input[name="email"]').type("user1@gmail.com");
+        cy.get('input[name="email"]').type("user1@example.com");
         cy.get('input[name="password"]').type("password1");
         cy.get('button[type="submit"]').click();
 

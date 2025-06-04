@@ -7,42 +7,30 @@ describe("Login screen", () => {
         cy.contains("Iniciar sesión");
     });
 
-    it("Incorrect email format (not email)", () => {
-        cy.get('input[name="email"]').type("incorrectemailformat");
-        cy.get('input[name="password"]').type("password1");
-
+    it("Invalid email format (empty)", () => {
         cy.get('button[type="submit"]').click();
-
-        cy.contains("Email inválido");
-    });
-
-    it("Incorrect email format (empty)", () => {
-        cy.get('input[name="password"]').type("password1");
-
-        cy.get('button[type="submit"]').click();
-
         cy.contains("El email es obligatorio");
     });
 
-    it("Incorrect password format (short)", () => {
+    it("Invalid email format (invalid email)", () => {
         cy.get('input[name="email"]').type("incorrectemailformat");
-        cy.get('input[name="password"]').type("pas");
-
         cy.get('button[type="submit"]').click();
-
-        cy.contains("La contraseña debe tener al menos 6 caracteres");
+        cy.contains("Email inválido");
     });
 
-    it("Incorrect password format (empty)", () => {
-        cy.get('input[name="email"]').type("incorrectemailformat");
-
+    it("Invalid password format (empty)", () => {
         cy.get('button[type="submit"]').click();
-
         cy.contains("La contraseña es obligatoria");
     });
 
+    it("Invalid password format (short)", () => {
+        cy.get('input[name="password"]').type("pas");
+        cy.get('button[type="submit"]').click();
+        cy.contains("La contraseña debe tener al menos 6 caracteres");
+    });
+
     it("Incorrect user login", () => {
-        cy.get('input[name="email"]').type("incorrectuser@gmail.com");
+        cy.get('input[name="email"]').type("incorrectuser@example.com");
         cy.get('input[name="password"]').type("password1");
 
         cy.get('button[type="submit"]').click();
@@ -52,7 +40,7 @@ describe("Login screen", () => {
     });
 
     it("Successful login", () => {
-        cy.get('input[name="email"]').type("user1@gmail.com");
+        cy.get('input[name="email"]').type("user1@example.com");
         cy.get('input[name="password"]').type("password1");
 
         cy.get('button[type="submit"]').click();
