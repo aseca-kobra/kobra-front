@@ -30,6 +30,7 @@ describe("Debin", () => {
     });
 
     it("Invalid debin (not enough money in bank)", () => {
+        cy.get('input[name="amount"]').type("10000000000000");
         cy.get('button[name="confirm"]').click();
         cy.contains("No hay saldo suficiente en la cuenta");
         cy.get('button[name="cancel"]').click();
