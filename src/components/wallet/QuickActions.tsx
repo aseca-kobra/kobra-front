@@ -64,13 +64,15 @@ const QuickActions = () => {
                 gap={2}
             >
                 <ActionButton 
-                    icon={<SwapVertIcon />} 
+                    icon={<SwapVertIcon />}
+                    name={"withdraw"}
                     label="Transferir" 
                     onClick={() => setIsTransferDialogOpen(true)}
                     disabled={isTransferLoading}
                 />
                 <ActionButton
                     icon={<CreditCardIcon />}
+                    name={"debin"}
                     label="Debin"
                     onClick={() => setIsDepositDialogOpen(true)}
                 />
