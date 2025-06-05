@@ -7,8 +7,8 @@ describe("Invalid Email", () => {
     const webviewContext = contexts.find((c) => c.includes("WEBVIEW"));
     expect(webviewContext).toBeDefined();
     await browser.switchContext(webviewContext!);
-    await $("#email").setValue("pedro");
-    await $("#password").setValue("pedro123");
+    await $("#email").setValue("user1");
+    await $("#password").setValue("Password123!");
     await $('button[type="submit"]').click();
     await browser.pause(2000);
     const errorHelperText = await $("#email-helper-text");
@@ -23,7 +23,7 @@ describe("Invalid Password", () => {
     await emailInput.click();
     await browser.keys(["Control", "a"]); // Ctrl+A (para seleccionar todo)
     await browser.keys("Delete"); // Borrar
-    await emailInput.setValue("pedro@gmail.com");
+    await emailInput.setValue("user1@example.com");
     const passwordInput = await $("#password");
     await passwordInput.click();
     await browser.keys(["Control", "a"]); // Ctrl+A (para seleccionar todo)
@@ -45,12 +45,12 @@ describe("Invalid Login Email", () => {
     await emailInput.click();
     await browser.keys(["Control", "a"]); // Ctrl+A (para seleccionar todo)
     await browser.keys("Delete"); // Borrar
-    await emailInput.setValue("pedro@hotmail.com");
+    await emailInput.setValue("user1@hotmail.com");
     const passwordInput = await $("#password");
     await passwordInput.click();
     await browser.keys(["Control", "a"]); // Ctrl+A (para seleccionar todo)
     await browser.keys("Delete"); // Borrar
-    await passwordInput.setValue("pedro123");
+    await passwordInput.setValue("Password123!");
     await $('button[type="submit"]').click();
     await browser.pause(2000);
     const errorMessage = await $(".MuiAlert-message");
@@ -65,12 +65,12 @@ describe("Invalid Login Password", () => {
     await emailInput.click();
     await browser.keys(["Control", "a"]); // Ctrl+A (para seleccionar todo)
     await browser.keys("Delete"); // Borrar
-    await emailInput.setValue("pedro@gmail.com");
+    await emailInput.setValue("user1@example.com");
     const passwordInput = await $("#password");
     await passwordInput.click();
     await browser.keys(["Control", "a"]); // Ctrl+A (para seleccionar todo)
     await browser.keys("Delete"); // Borrar
-    await passwordInput.setValue("pedro456");
+    await passwordInput.setValue("Password456!");
     await $('button[type="submit"]').click();
     await browser.pause(2000);
     const errorMessage = await $(".MuiAlert-message");
@@ -85,12 +85,12 @@ describe("Valid Login", () => {
     await emailInput.click();
     await browser.keys(["Control", "a"]); // Ctrl+A (para seleccionar todo)
     await browser.keys("Delete"); // Borrar
-    await emailInput.setValue("pedro@gmail.com");
+    await emailInput.setValue("user1@example.com");
     const passwordInput = await $("#password");
     await passwordInput.click();
     await browser.keys(["Control", "a"]); // Ctrl+A (para seleccionar todo)
     await browser.keys("Delete"); // Borrar
-    await passwordInput.setValue("pedro123");
+    await passwordInput.setValue("Password123!");
     await $('button[type="submit"]').click();
     await browser.pause(2000);
     const currentUrl = await browser.getUrl();
