@@ -25,9 +25,16 @@ const QuickActions = () => {
             await deposit(amount, refreshTransactions);
             return { success: true };
         } catch (error) {
+            let errorMessage = error instanceof Error ? error.message : 'Error al procesar el debin';
+            if (errorMessage.includes('Insufficient funds')) {
+                errorMessage = 'No hay saldo suficiente en la cuenta';
+            }
+            else if (errorMessage.includes('Account not found')) {
+                errorMessage = 'Cuenta no encontrada';
+            }
             return { 
-                success: false, 
-                error: error instanceof Error ? error.message : 'Error al procesar el debin'
+                success: false,
+                error: errorMessage
             };
         }
     };
