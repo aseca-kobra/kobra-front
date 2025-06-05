@@ -21,7 +21,15 @@ const QuickActions = () => {
     const { refreshTransactions } = useTransactionsContext();
 
     const handleDeposit = async (amount: number) => {
-        await deposit(amount, refreshTransactions);
+        try {
+            await deposit(amount, refreshTransactions);
+            return { success: true };
+        } catch (error) {
+            return { 
+                success: false, 
+                error: error instanceof Error ? error.message : 'Error al procesar el debin'
+            };
+        }
     };
 
     const handleTransfer = async (amount: number, recipientEmail: string) => {
