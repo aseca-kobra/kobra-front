@@ -47,6 +47,41 @@ describe("Debin", () => {
         getBalance().should("equal", initialBalance);
     });
 
+    it("Invalid debin (user not registered in bank)", () => {
+        const randomUser = `user${Date.now()}`;
+
+        //log out the current user
+        cy.get('button[name="cancel"]').click();
+        cy.get('button[name="logout"]').click();
+        cy.get('button[name="confirm"]').click();
+
+        // Register a new user
+        cy.visit("/");
+        cy.contains("button", "¿No tienes una cuenta? Regístrate").click();
+        cy.get('input[name="name"]').type(randomUser);
+        cy.get('input[name="email"]').type(`user${randomUser}@example.com`);
+        cy.get('input[name="password"]').type("password1");
+        cy.get('input[name="confirmPassword"]').type("password1");
+        cy.get('button[type="submit"]').click();
+        // Log in with the new user
+        cy.visit("/");
+        cy.get('input[name="email"]').type(`user${randomUser}@example.com`);
+        cy.get('input[name="password"]').type("password1");
+        cy.get('button[type="submit"]').click();
+        // Try to debin
+        getBalance().then((balance) => {
+            initialBalance = balance;
+            cy.get('button[name="debin"]').click();
+            cy.get('input[name="amount"]').type("1");
+            cy.get('button[name="confirm"]').click();
+            cy.contains("Cuenta no encontrada");
+            cy.get('button[name="cancel"]').click();
+
+            getBalance().should("equal", initialBalance);
+        });
+    });
+
+
     it("Successful debin", () => {
         cy.get('input[name="amount"]').type("1000");
         cy.get('button[name="confirm"]').click();
