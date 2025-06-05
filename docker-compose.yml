@@ -1,0 +1,7 @@
+services:
+  kobra-front-app:
+    image: ghcr.io/aseca-kobra/kobra-front:latest
+    container_name: kobra-front-app
+    ports:
+      - "8080:80"
+    restart: unless-stopped
