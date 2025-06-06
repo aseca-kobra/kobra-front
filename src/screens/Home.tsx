@@ -23,9 +23,8 @@ const Home = () => {
                 flexDirection="column"
                 alignItems="center"
                 gap={4}
-                padding={4}
+                padding={0}
                 alignSelf="center"
-                width="100%"
                 maxWidth="600px"
                 margin="0 auto"
             >
