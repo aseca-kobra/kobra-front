@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && cap sync",
-    "build:web": "tsc -b && vite build",
+    "build": "tsc -p tsconfig.app.json && vite build && cap sync",
+    "build:web": "tsc -p tsconfig.app.json && vite build",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "preview": "vite preview",
     "android": "cap run android"
