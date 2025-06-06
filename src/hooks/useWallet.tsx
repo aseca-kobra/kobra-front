@@ -67,7 +67,6 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
         }
 
         setIsLoading(true);
-        setError(null);
         try {
             const response = await fetch(`${apiUrl}/wallet/debin`, {
                 method: 'POST',
@@ -85,13 +84,13 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
 
             const data = await response.json();
             setBalance(data.balance);
+            setError(null);
 
             if (onSuccess) {
                 await onSuccess();
             }
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Error al realizar el depósito');
-            throw err;
+            throw err instanceof Error ? err : new Error('Error al realizar el depósito');
         } finally {
             setIsLoading(false);
         }

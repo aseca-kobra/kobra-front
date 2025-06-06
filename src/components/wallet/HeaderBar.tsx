@@ -31,6 +31,7 @@ const HeaderBar = () => {
                         <AccountCircleIcon />
                     </Box>
                     <Button
+                        name={"logout"}
                         color="inherit"
                         onClick={handleOpenDialog}
                         startIcon={<LogoutIcon />}
@@ -47,10 +48,11 @@ const HeaderBar = () => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCloseDialog} color="primary">
+                    <Button onClick={handleCloseDialog} name={"cancel"} color="primary">
                         Cancelar
                     </Button>
                     <Button
+                        name={"confirm"}
                         onClick={() => {
                             handleCloseDialog();
                             logout();

@@ -3,14 +3,16 @@ import {ReactNode} from "react";
 
 interface ActionButtonProps {
     icon: ReactNode;
+    name: string;
     label: string;
     onClick?: () => void;
     disabled?: boolean;
 }
 
-const ActionButton = ({ icon, label, onClick, disabled }: ActionButtonProps) => {
+const ActionButton = ({ icon, name, label, onClick, disabled }: ActionButtonProps) => {
     return (
         <Button
+            name={name}
             variant="outlined"
             onClick={onClick}
             disabled={disabled}

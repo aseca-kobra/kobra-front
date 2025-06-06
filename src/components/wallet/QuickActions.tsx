@@ -15,18 +15,28 @@ import { useTransactionsContext } from "../../hooks/useTransactionsContext";
 
 const QuickActions = () => {
     const [isDepositDialogOpen, setIsDepositDialogOpen] = useState(false);
-    const [isWithdrawDialogOpen, setIsWithdrawDialogOpen] = useState(false);
     const [isTransferDialogOpen, setIsTransferDialogOpen] = useState(false);
-    const { deposit, withdraw } = useWallet();
+    const { deposit } = useWallet();
     const { transfer, isLoading: isTransferLoading, error: transferError } = useTransfer();
     const { refreshTransactions } = useTransactionsContext();
 
     const handleDeposit = async (amount: number) => {
-        await deposit(amount, refreshTransactions);
-    };
-
-    const handleWithdraw = async (amount: number) => {
-        await withdraw(amount, refreshTransactions);
+        try {
+            await deposit(amount, refreshTransactions);
+            return { success: true };
+        } catch (error) {
+            let errorMessage = error instanceof Error ? error.message : 'Error al procesar el debin';
+            if (errorMessage.includes('Insufficient funds')) {
+                errorMessage = 'No hay saldo suficiente en la cuenta';
+            }
+            else if (errorMessage.includes('Account not found')) {
+                errorMessage = 'Cuenta no encontrada';
+            }
+            return { 
+                success: false,
+                error: errorMessage
+            };
+        }
     };
 
     const handleTransfer = async (amount: number, recipientEmail: string) => {
@@ -64,13 +74,15 @@ const QuickActions = () => {
                 gap={2}
             >
                 <ActionButton 
-                    icon={<SwapVertIcon />} 
+                    icon={<SwapVertIcon />}
+                    name={"transfer"}
                     label="Transferir" 
                     onClick={() => setIsTransferDialogOpen(true)}
                     disabled={isTransferLoading}
                 />
                 <ActionButton
                     icon={<CreditCardIcon />}
+                    name={"debin"}
                     label="Debin"
                     onClick={() => setIsDepositDialogOpen(true)}
                 />
@@ -80,18 +92,9 @@ const QuickActions = () => {
                 open={isDepositDialogOpen}
                 onClose={() => setIsDepositDialogOpen(false)}
                 onConfirm={handleDeposit}
-                title="Realizar Depósito"
-                description="Ingrese el monto que desea depositar en su cuenta"
-                confirmButtonText="Depositar"
-            />
-
-            <AmountDialog
-                open={isWithdrawDialogOpen}
-                onClose={() => setIsWithdrawDialogOpen(false)}
-                onConfirm={handleWithdraw}
-                title="Realizar Retiro"
-                description="Ingrese el monto que desea retirar de su cuenta"
-                confirmButtonText="Retirar"
+                title="Realizar Debin"
+                description="Ingrese el monto que desea ingresar en su cuenta"
+                confirmButtonText="Debin"
             />
 
             <TransferDialog

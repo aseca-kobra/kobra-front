@@ -49,7 +49,6 @@ const useTransfer = (): UseTransferReturn => {
                     errorMessage = 'El destinatario no está registrado';
                 }
 
-                setError(errorMessage);
                 return { success: false, error: errorMessage };
             }
 
