@@ -12,7 +12,7 @@ describe("Transfer", () => {
     beforeEach(() => {
         cy.visit("/");
         cy.get('input[name="email"]').type("user1@example.com");
-        cy.get('input[name="password"]').type("password1");
+        cy.get('input[name="password"]').type("Password123!");
         cy.get('button[type="submit"]').click();
 
         getBalance().then((balance) => {
@@ -65,14 +65,14 @@ describe("Transfer", () => {
     // });
 
     it("Successful transfer", () => {
-        const amount = 1000;
+        const amount = 10;
 
         // 1) Logueo como user2 y tomo su balance inicial
         cy.get('button[name="cancel"]').click();
         cy.get('button[name="logout"]').click();
         cy.get('button[name="confirm"]').click();
         cy.get('input[name="email"]').type("user2@example.com");
-        cy.get('input[name="password"]').type("password1");
+        cy.get('input[name="password"]').type("Password123!");
         cy.get('button[type="submit"]').click();
 
         getBalance().then((initialReceiverBalance) => {
@@ -80,7 +80,7 @@ describe("Transfer", () => {
             cy.get('button[name="logout"]').click();
             cy.get('button[name="confirm"]').click();
             cy.get('input[name="email"]').type("user1@example.com");
-            cy.get('input[name="password"]').type("password1");
+            cy.get('input[name="password"]').type("Password123!");
             cy.get('button[type="submit"]').click();
 
             // Asumo que initialBalance ya está definido en beforeEach
@@ -96,7 +96,7 @@ describe("Transfer", () => {
             cy.get('button[name="logout"]').click();
             cy.get('button[name="confirm"]').click();
             cy.get('input[name="email"]').type("user2@example.com");
-            cy.get('input[name="password"]').type("password1");
+            cy.get('input[name="password"]').type("Password123!");
             cy.get('button[type="submit"]').click();
 
             getBalance().should("equal", initialReceiverBalance + amount);

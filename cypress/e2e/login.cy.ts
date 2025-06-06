@@ -41,7 +41,7 @@ describe("Login screen", () => {
 
     it("Successful login", () => {
         cy.get('input[name="email"]').type("user1@example.com");
-        cy.get('input[name="password"]').type("password1");
+        cy.get('input[name="password"]').type("Password123!");
 
         cy.get('button[type="submit"]').click();
 

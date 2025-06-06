@@ -40,8 +40,8 @@ describe("Signup screen", () => {
     it("Failed signup (email already exists)", () => {
         cy.get('input[name="name"]').type("user1");
         cy.get('input[name="email"]').type("user1@example.com");
-        cy.get('input[name="password"]').type("password1");
-        cy.get('input[name="confirmPassword"]').type("password1");
+        cy.get('input[name="password"]').type("Password123!");
+        cy.get('input[name="confirmPassword"]').type("Password123!");
 
         cy.get('button[type="submit"]').click();
 
@@ -51,8 +51,8 @@ describe("Signup screen", () => {
     it("Successful signup", () => {
         cy.get('input[name="name"]').type(randomUser);
         cy.get('input[name="email"]').type(`user${randomUser}@example.com`);
-        cy.get('input[name="password"]').type("password1");
-        cy.get('input[name="confirmPassword"]').type("password1");
+        cy.get('input[name="password"]').type("Password123!");
+        cy.get('input[name="confirmPassword"]').type("Password123!");
 
         cy.get('button[type="submit"]').click();
 
@@ -63,7 +63,7 @@ describe("Signup screen", () => {
         cy.visit("/");
 
         cy.get('input[name="email"]').type(`user${randomUser}@example.com`);
-        cy.get('input[name="password"]').type("password1");
+        cy.get('input[name="password"]').type("Password123!");
 
         cy.get('button[type="submit"]').click();
 

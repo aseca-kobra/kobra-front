@@ -12,7 +12,7 @@ describe("Debin", () => {
     beforeEach(() => {
         cy.visit("/");
         cy.get('input[name="email"]').type("user1@example.com");
-        cy.get('input[name="password"]').type("password1");
+        cy.get('input[name="password"]').type("Password123!");
         cy.get('button[type="submit"]').click();
 
         getBalance().then((balance) => {
@@ -60,13 +60,13 @@ describe("Debin", () => {
         cy.contains("button", "¿No tienes una cuenta? Regístrate").click();
         cy.get('input[name="name"]').type(randomUser);
         cy.get('input[name="email"]').type(`user${randomUser}@example.com`);
-        cy.get('input[name="password"]').type("password1");
-        cy.get('input[name="confirmPassword"]').type("password1");
+        cy.get('input[name="password"]').type("Password123!");
+        cy.get('input[name="confirmPassword"]').type("Password123!");
         cy.get('button[type="submit"]').click();
         // Log in with the new user
         cy.visit("/");
         cy.get('input[name="email"]').type(`user${randomUser}@example.com`);
-        cy.get('input[name="password"]').type("password1");
+        cy.get('input[name="password"]').type("Password123!");
         cy.get('button[type="submit"]').click();
         // Try to debin
         getBalance().then((balance) => {
