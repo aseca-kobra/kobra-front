@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && cap sync",
+    "build:web": "tsc -b && vite build",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "preview": "vite preview",
     "android": "cap run android"
