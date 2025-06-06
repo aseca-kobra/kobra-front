@@ -90,7 +90,7 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
                 await onSuccess();
             }
         } catch (err) {
-            throw err;
+            throw err instanceof Error ? err : new Error('Error al realizar el depósito');
         } finally {
             setIsLoading(false);
         }
