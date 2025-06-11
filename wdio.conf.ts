@@ -6,7 +6,7 @@ export const config: WebdriverIO.Config = {
   tsConfigPath: "./appium/test/tsconfig.json",
   specs: ["./appium/test/specs/**/*.ts"],
   exclude: [],
-  maxInstances: 10,
+  maxInstances: 1,
   capabilities: [
     {
       // capabilities for local Appium web tests on an Android Emulator
