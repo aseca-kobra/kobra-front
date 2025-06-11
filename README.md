@@ -52,3 +52,18 @@ export default tseslint.config({
   },
 })
 ```
+
+# Install Appium globally (optional)
+npm install -g appium
+
+# Install Appium Android driver
+appium driver install uiautomator2
+
+# Start Appium server
+appium
+
+# Verify connected devices
+adb devices
+
+# Run tests with WebdriverIO
+npx wdio run .\wdio.conf.ts
