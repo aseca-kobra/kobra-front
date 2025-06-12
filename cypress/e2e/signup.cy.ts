@@ -11,28 +11,48 @@ describe("Signup screen", () => {
     });
 
     it("Invalid name format (empty)", () => {
+        cy.get('input[name="email"]').type(`user${randomUser}@example.com`);
+        cy.get('input[name="password"]').type("Password123!");
+        cy.get('input[name="confirmPassword"]').type("Password123!");
+
         cy.get('button[type="submit"]').click();
         cy.contains("El nombre es obligatorio");
     });
 
     it("Invalid email format (empty)", () => {
+        cy.get('input[name="name"]').type(randomUser);
+        cy.get('input[name="password"]').type("Password123!");
+        cy.get('input[name="confirmPassword"]').type("Password123!");
+
         cy.get('button[type="submit"]').click();
         cy.contains("El email es obligatorio");
     });
 
     it("Invalid email format (invalid email)", () => {
+        cy.get('input[name="name"]').type(randomUser);
         cy.get('input[name="email"]').type("incorrectemailformat");
+        cy.get('input[name="password"]').type("Password123!");
+        cy.get('input[name="confirmPassword"]').type("Password123!");
+
         cy.get('button[type="submit"]').click();
         cy.contains("Email inválido");
     });
 
     it("Invalid password format (empty)", () => {
+        cy.get('input[name="name"]').type(randomUser);
+        cy.get('input[name="email"]').type(`user${randomUser}@example.com`);
+        cy.get('input[name="confirmPassword"]').type("Password123!");
+
         cy.get('button[type="submit"]').click();
         cy.contains("La contraseña es obligatoria");
     });
 
     it("Invalid password format (short)", () => {
+        cy.get('input[name="name"]').type(randomUser);
+        cy.get('input[name="email"]').type(`user${randomUser}@example.com`);
         cy.get('input[name="password"]').type("pas");
+        cy.get('input[name="confirmPassword"]').type("pas");
+
         cy.get('button[type="submit"]').click();
         cy.contains("La contraseña debe tener al menos 6 caracteres");
     });
